@@ -6,8 +6,12 @@
     <br><br><br>
     <h6>Editor</h6>
     <div id="editor">
-        <p>...</p>
+        <p class='posttext'>...</p>
     </div>
+    <br>
+    <form action='/' method='POST'>
+        <input class='btn btn-outline-success' type="button" name="btnpost" onclick="func()" value='Post it!'>
+    </form>
 
     <!-- Initialize Quill editor -->
     <script>
@@ -17,6 +21,19 @@
             },
             theme: 'snow'
         });
+
+        function func() {
+                var value = $('#editor').html();
+                $.ajax({
+                  type: 'POST',
+                  url: "{{ url_for('posttext') }}",
+                  data: JSON.stringify(value),
+                  contentType: 'application/json',
+                  success: function(data){
+                    window.location = "{{ url_for('manageposts') }}";
+                  }
+                });}
+
     </script>
 </div>
 {% endblock %}

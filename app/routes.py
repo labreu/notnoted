@@ -1,11 +1,13 @@
 from app import app
 from flask import render_template, redirect, request
 from app.forms import LoginForm, SearchForm
+from app.models import User, Post
+from app import db
 
 user = None
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 def index():
     login_form = LoginForm(prefix='l')
     search_form = SearchForm(prefix='s')
@@ -24,6 +26,13 @@ def login():
     if login_form.validate_on_submit():
         user = {'username': request.form.get('l-username'),
                 'password': request.form.get('l-pw')}
+
+        u = User.query.filter_by(username=user.get('username', 'Nenhum')).first()
+        if u:
+            if u.password_hash != user.get('password', "Nenhuma"):
+                user = None
+        else:
+            user = None
     else:
         user = None
     return redirect('index')
@@ -42,10 +51,18 @@ def post():
     else:
         return redirect('index')
 
+@app.route('/posttext', methods=['POST', 'GET'])
+def posttext():
+    text = request.json
+    print("TEXTO:", text, type(text))
+
+    return ""
+
+
 @app.route('/manageposts')
 def manageposts():
-    return redirect('index')
+    return "Em construcao posts"
 
 @app.route('/manageaccount')
 def manageaccount():
-    return redirect('index')
+    return "Em construcao account"
