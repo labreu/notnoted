@@ -1,35 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close right" >&times;</span>
-            <form action="/login" method="post" class='loginform'>
-                {{ login.hidden_tag() }}
-                <div>
-                    {{ login.username(size=32, class_='form-control', placeholder='Username') }}
-                </div>
-                <div>
-                    {{ login.pw(size=32, class_='form-control', placeholder='Password') }}
-                </div><br>   
-                <div>
-                    {{ login.submit(class_='btn') }}
-                </div>
-            </form>
-        </div>
-</div>
-
     <br><br><br><br><br><br>
-    <!-- <h5>Why are you here?</h5> -->
-    <form action="/search" method="post" class="form-inline my-2 my-lg-0 middle">
-        {{ search.hidden_tag() }}
-        <p>{{ search.search_string(size=32, class_='form-control', placeholder='                         search') }} <br></p>
-        {{ search.submit(class_='btn btn-outline-success middle') }}
-    </form>
-
-
-    <!-- {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %} -->
-
+    <div class="container" >
+        <form role="form" action="/search" method="post" class='marg'>
+            <div class='marg'>
+                {{ search.hidden_tag() }}
+                {{ search.search_string(size=12, class_='form-control', placeholder='search') }}
+            </div>
+            <div class='marg' >
+                {{ search.submit(class_='btn btn-outline-success') }}
+            </div>
+        </form>
+    
+    </div>
 {% endblock %}
+
+

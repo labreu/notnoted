@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <div class='container'>
+        
+            <form action="/login" method="post" class='form-control marg'>
+                {{ login.hidden_tag() }}
+                <div>
+                    {{ login.username(size=32, class_='form-control input', placeholder='Username') }}
+                </div><br>   
+                <div>
+                    {{ login.pw(size=32, class_='form-control input', placeholder='Password') }}
+                </div><br>   
+                <div>
+                    {{ login.submit(class_='btn input') }}
+                </div>
+            </form>
+        
+    </div>
+    
+
+{% endblock %}
