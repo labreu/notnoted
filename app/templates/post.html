@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class='container'>
+    <br><br><br>
+    <h6>Editor</h6>
+    <div id="editor">
+        <p>...</p>
+    </div>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: false
+            },
+            theme: 'snow'
+        });
+    </script>
+</div>
+{% endblock %}

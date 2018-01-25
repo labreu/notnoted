@@ -1,0 +1,6 @@
+app/__pycache__/*
+migrations/*
+venv/*
+*.pyc
+app/*.pyc
+
