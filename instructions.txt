@@ -1,0 +1,109 @@
+# Obs
+$('#divcomtexto').html(quill.root.innerHTML)
+
+var toolbarOptions = [
+                [{ 'font': [] }],
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                //[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                //[{ 'direction': 'rtl' }],                         // text direction
+                //[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['blockquote', 'code-block'],
+                [ 'link', 'image', 'formula' ],          // , 'video' add's image support
+                [{ 'align': [] }],
+                ['clean']                                         // remove formatting button
+            ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+
+            theme: 'snow'
+        });
+
+# Site de ouro
+https://plnkr.co/edit/gq708AOrSBOWSlHcFslG?p=preview
+<script src="image-resize.min.js"></script>
+
+# Import base.html
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link href= "{{ url_for('static', filename='css/style.css') }}" rel= "stylesheet" type= "text/css" >        
+<link href="{{ url_for('static', filename='css/quill.snow.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='js/quill.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/image-resize.min.js') }}"></script>
+
+
+# Arquivo post.html
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class='container'>
+    <br><br><br>
+    <h6>Editor</h6>
+    <div id="editor">
+        <p class='posttext'>...</p>
+    </div>
+    <br>
+    <form action='/' method='POST'>
+        <input class='btn btn-outline-success' type="button" name="btnpost" onclick="func()" value='Post it!'>
+    </form>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        // var quill = new Quill('#editor', {
+        //     // modules: {
+        //     //     toolbar: false
+        //     // },
+
+        //     theme: 'snow'
+        // });
+        var toolbarOptions = [
+                [{ 'font': [] }],
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                //[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                //[{ 'direction': 'rtl' }],                         // text direction
+                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['blockquote', 'code-block'],
+                [ 'link', 'image', 'formula' ],          // , 'video' add's image support
+                [{ 'align': [] }],
+                ['clean']                                         // remove formatting button
+            ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions,
+                imageResize: {
+                  displaySize: true
+                }
+            },
+
+            theme: 'snow'
+        });
+
+
+        function func() {
+                var value = $('#editor').html();
+                $.ajax({
+                  type: 'POST',
+                  url: "{{ url_for('posttext') }}",
+                  data: JSON.stringify(value),
+                  contentType: 'application/json',
+                  success: function(data){
+                    window.location = "{{ url_for('manageposts') }}";
+                  }
+                });}
+
+    </script>
+</div>
+{% endblock %}
