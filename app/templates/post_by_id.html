@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <div class="container">
+        <h4>{{post.title}}</h4>
+        <p>by {{post.author.username}} at {{post.timestamp.strftime('%Y/%m/%d %H:%M:%S')}} UTC</p>
+    	<p>{{post.body.split('<div class="ql-clipboard"')[0] | safe}}</p>
+    </div>
+{% endblock %}
+
+

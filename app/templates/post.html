@@ -1,33 +1,64 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 <div class='container'>
     <br><br><br>
-    <h6>Editor</h6>
-    <div id="editor">
-        <p class='posttext'>...</p>
+    
+    <div>
+        <h5>Title</h5>  
+        <input id='title' type='text' size=55 style='text-align:left;' class='form-input'><br><br>
     </div>
+    <h6>Write at your will</h6>
+    <div id="editor">
+        <p class='posttext'></p>
+    </div>
+    
     <br>
     <form action='/' method='POST'>
         <input class='btn btn-outline-success' type="button" name="btnpost" onclick="func()" value='Post it!'>
     </form>
 
-    <!-- Initialize Quill editor -->
     <script>
+        var toolbarOptions = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                [ 'link', 'image'],          // , , 'formula'  'video' add's image support
+                ['blockquote', 'code-block'],
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                //[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'align': [] }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                //[{ 'direction': 'rtl' }],                         // text direction
+                //[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                
+                [{ 'font': [] }],
+                ['clean']                                         // remove formatting button
+            ];
+
         var quill = new Quill('#editor', {
             modules: {
-                toolbar: false
+                toolbar: toolbarOptions,
+                imageResize: {
+                  displaySize: true
+                }
             },
+
             theme: 'snow'
         });
 
+
         function func() {
                 var value = $('#editor').html();
+                var values = {
+                    'text': value,
+                    'title': $('#title')[0].value
+                }
                 $.ajax({
                   type: 'POST',
                   url: "{{ url_for('posttext') }}",
-                  data: JSON.stringify(value),
+                  data: JSON.stringify(values),
                   contentType: 'application/json',
                   success: function(data){
                     window.location = "{{ url_for('manageposts') }}";
