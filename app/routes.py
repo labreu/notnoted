@@ -22,7 +22,6 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash('Please login.')
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -72,7 +71,7 @@ def posttext():
     post = Post(body=text['text'], title=text['title'], author=current_user)
     db.session.add(post)
     db.session.commit()
-    
+
     return ''
 
 @app.route('/posts/<id>')
@@ -81,13 +80,13 @@ def get_post_by_id(id):
     return render_template('post_by_id.html', post=post)
 
 @app.route('/feed')
-def feed():    
+def feed():
     posts = Post.query.all()
     return render_template('feed.html', posts=posts)
 
 @app.route('/manageposts')
 @login_required
-def manageposts():    
+def manageposts():
     posts = Post.query.filter_by(author=current_user).all()
     return render_template('manageposts.html', posts=posts)
 
