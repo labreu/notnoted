@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <br><br><br><br><br><br>
+    
     <div class="container" >
-    	<ul>
-        {% for post in posts[::-1] %}
-	    	<li>
-	    		<p>
-	    			{{post.timestamp.strftime('%Y/%m/%d')}} - <strong>{{ post.author.username }}</strong> wrote <a href='/posts/{{post.id}}'>{{ post.title }}</a>
-	    		</p>
-	    	</li>
-        {% endfor %}
-    	</ul>
+        <br><br><br>
+            <h3>Latest posts</h3>
+        <br>
+    	<div class="list-group list-group-flush">
+            {% for post in posts[::-1] %}
+                <a href='/posts/{{post.id}}' class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{ post.title }}</h5>
+                      <small>{{post.timestamp.strftime('%Y/%m/%d')}}</small>
+                    </div>
+                    <!-- <small>by {{ post.author.username }}</small> -->
+                </a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 

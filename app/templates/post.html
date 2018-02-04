@@ -11,20 +11,20 @@
     
     <form method='POST' action='/upload' enctype=multipart/form-data>
       <input id='title' name='title' type='text' size=55 style='text-align:left;' class='form-input'><br><br>
-      <h6>Write at your will or upload an html file</h6>
+      <h6>Write at your will or upload a html file</h6>
       <span class='btn btn-file'>
-        <input type='file' name='file' class='inpt'>
+        <input type='file' name='file' class='btn-sm'>
       </span>
-         <input type='submit' value='Upload' class='btn btn-outline-success'>
+         <input type='submit' value='Upload' class='btn btn-outline-success btn-sm'>
     </form>
-
+    <br>
     <div id="editor">
         <p class='posttext'></p>
     </div>
     
     <br>
     <form action='/' method='POST'>
-        <input class='btn btn-outline-success' type="button" name="btnpost" onclick="func()" value='Post it!'>
+        <input class='btn btn-outline-success btn-sm' type="button" name="btnpost" onclick="func()" value='Post it!'>
     </form>
 
     <script>

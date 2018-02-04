@@ -1,5 +1,6 @@
 app/__pycache__/*
 migrations/*
+app/static/notebooks/*
 venv/*
 *.pyc
 app/*.pyc

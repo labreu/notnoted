@@ -61,9 +61,9 @@ def login():
         if user is None or not user.check_password(form.pw.data):
             flash('Please login.')
             return redirect(url_for('login'))
-        flash('Welcome!')
+        #flash('Welcome!')
         login_user(user)
-        return redirect(url_for('index'))
+        return redirect(url_for('post'))
     else:
         return render_template('login.html', title='Sign In', login=form)
 
@@ -109,9 +109,7 @@ def posttext():
 @app.route('/deletepost/<id>/<hide>')
 @login_required
 def deletepost(id, hide=1):
-    print('hide',hide)
     p = Post.query.filter_by(id=id).filter_by(author=current_user).first()
-    print('p1', p.deleted)
     if p is not None:
         if hide == '1':
             p.deleted = True
@@ -119,20 +117,30 @@ def deletepost(id, hide=1):
             p.deleted = False
         db.session.merge(p)
         db.session.commit()
+    return redirect('/manageposts')
 
-        print('p2', Post.query.filter_by(id=id).first().deleted)
-    return redirect('/feed')
+@app.route('/deleteconfirm/<id>')
+@login_required
+def deleteconfirm(id):
+    p = Post.query.filter_by(id=id).filter_by(author=current_user).first()
+    if p is not None:
+        db.session.delete(p)
+        db.session.commit()
+    return redirect('/manageposts')
 
 @app.route('/posts/<id>')
 def get_post_by_id(id):
     post = Post.query.filter_by(id=id).first()
-    if post is None or post.deleted:
-        return redirect('/feed')
+    if post is None:
+        return redirect('/manageposts')
+    #if post is hidden and author wants to look at it
+    if post.deleted and post.author != current_user:  
+        return redirect('/manageposts')
  
     if post.file is None:
         return render_template('post_by_id.html', post=post)
     else:
-        return render_template('render_nb.html', nb=post.file)
+        return render_template('render_nb.html', post=post)
 
 @app.route('/feed')
 def feed():

@@ -1,22 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <br><br><br><br><br><br>
+    <br><br>
     <div class="container" >
-    	<ul>
-        {% for post in posts[::-1] %}
-	    	<li>
-	    		<p>
-	    			{{post.timestamp.strftime('%Y/%m/%d')}} - <strong>{{ post.author.username }}</strong> wrote <a href='/posts/{{post.id}}'>{{ post.title }}</a> - 
-                    {% if post.deleted %}
-                        <a href='deletepost/{{post.id}}/2'>Unhide</a>
-                    {% else %}
-                        <a href='deletepost/{{post.id}}/1'>Hide</a>
-                    {% endif %}
-	    		</p>
-	    	</li>
-        {% endfor %}
-    	</ul>
+    	<div class="list-group list-group-flush">
+            {% for post in posts[::-1] %}
+                <a href='/posts/{{post.id}}' class="list-group-item list-group-item-action flex-column align-items-start">
+                    <br>
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{ post.title }}</h5>
+                      <small>{{post.timestamp.strftime('%Y/%m/%d')}}</small>
+                    </div>
+                    <!-- <small>by {{ post.author.username }}</small> -->
+
+                    <div class="d-flex flex-row">
+                      <div style='margin-right: 5px;'>
+                        {% if post.deleted %}
+                          <form action="/deletepost/{{post.id}}/2">
+                            <input type="submit" value="Show" class='btn btn-outline-success btn-sm' />
+                        {% else %}
+                          <form action="/deletepost/{{post.id}}/1">
+                            <input type="submit" value="Hide" class='btn btn-outline-success btn-sm' />
+                        {% endif %}
+                        </form>
+                      </div>
+                      <div>
+                        <form action="/deleteconfirm/{{post.id}}" onsubmit="return confirm('Do you really want to delete this post?');">
+                            <input type="submit" value="Delete" class='btn btn-outline-success btn-sm' />
+                        </form>
+                      </div>
+                    </div>  
+                    
+	    		       </a>
+            {% endfor %}
+    	</div>
     </div>
 {% endblock %}
 

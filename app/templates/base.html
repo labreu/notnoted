@@ -11,13 +11,13 @@
         <link href="{{ url_for('static', filename='css/quill.snow.css') }}" rel="stylesheet">
         <script src="{{ url_for('static', filename='js/quill.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/image-resize.min.js') }}"></script>
-
+<!-- 
         <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
             <a class="navbar-brand" href="/">NN</a>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
                 {% if current_user.is_anonymous %}
-                    <li class="nav-item"><a class="nav-link" href="/feed">Feed </a></li>    
+                    <li class="nav-item"><a class="nav-link" href="/feed">Home </a></li>    
                     <li class="nav-item"><a class="nav-link" href="/login">Login </a></li>    
                     <li class="nav-item"><a class="nav-link" href="/register">Register </a></li>    
                 {% else %} 
@@ -29,6 +29,35 @@
                 {% endif %}
                 </ul>
             </div>
+        </nav> -->
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="/">NN</a>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if current_user.is_anonymous %}
+                    <li class="nav-item"><a class="nav-link" href="/feed">Home </a></li>    
+                    
+                {% else %} 
+                    <li class="nav-item"><a class="nav-link" href="/feed">Home </a></li>    
+                    <li class="nav-item"><a class="nav-link" href="/post">Post </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/manageposts">Manage Posts </a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="/manageaccount">Manage Account </a></li> -->
+                {% endif %}
+            </ul>
+            
+                {% if current_user.is_anonymous %}
+                <form class="form-inline my-2 my-lg-0" action='/login'>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log in</button>
+                 {% else %} 
+                <form class="form-inline my-2 my-lg-0" action='/logout'>
+                    <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+                {% endif %}
+                </form>
+          </div>
         </nav>
 
     </head>

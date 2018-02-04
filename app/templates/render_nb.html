@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <br>
+    <br><br><br>
     <div class="h_iframe">
-    	<iframe src="{{url_for('static', filename='notebooks/'+nb)}}" frameborder="0" allowfullscreen>></iframe>
+    	<div class="container">
+    		<h2>{{post.title}}</h2>
+        	<p>by {{post.author.username}} at {{post.timestamp.strftime('%Y/%m/%d %H:%M:%S')}} UTC</p>
+        	<br>
+    	</div>
+    	<iframe src="{{url_for('static', filename='notebooks/'+post.file)}}" frameborder="0" allowfullscreen>></iframe>
 	</div>
     
 {% endblock %}
