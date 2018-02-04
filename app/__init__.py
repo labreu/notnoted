@@ -5,11 +5,9 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 def init_db():
-    if os.path.exists('app/app.db'):
-        print('tudo ok ')
-        pass
-    else:
-        os.system('export FLASK_APP=main.py; flask db init;flask db migrate;flask db upgrade')
+	os.system('rm -rf migrations')
+	os.system('rm app/app.db')
+    os.system('export FLASK_APP=main.py; flask db init;flask db migrate;flask db upgrade')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
