@@ -9,11 +9,7 @@ def init_db():
         print('tudo ok ')
         pass
     else:
-
-        os.system('export FLASK_APP=main.py')
-        os.system('flask db init')
-        os.system('flask db migrate')
-        os.system('flask db upgrade')
+        os.system('export FLASK_APP=main.py; flask db init;flask db migrate;flask db upgrade')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
