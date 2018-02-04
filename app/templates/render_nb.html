@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br>
+    <div class="h_iframe">
+    	<iframe src="{{url_for('static', filename='notebooks/'+nb)}}" frameborder="0" allowfullscreen>></iframe>
+	</div>
+    
+{% endblock %}
+
+

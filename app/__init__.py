@@ -7,10 +7,15 @@ from flask_sqlalchemy import SQLAlchemy
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+try:
+	os.makedirs('app/static/notebooks/')
+except:
+	pass
 
 app.config['SECRET_KEY'] = 'youwillneverguessmate'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = 'app/static/notebooks/'
 
 db = SQLAlchemy(app)
 login = LoginManager(app)

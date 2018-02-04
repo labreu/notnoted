@@ -24,6 +24,8 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(1000))
     title = db.Column(db.String(140))
+    file = db.Column(db.String(140))
+    deleted = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 

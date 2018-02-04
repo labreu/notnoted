@@ -7,7 +7,12 @@
         {% for post in posts[::-1] %}
 	    	<li>
 	    		<p>
-	    			{{post.timestamp.strftime('%Y/%m/%d')}} - <strong>{{ post.author.username }}</strong> wrote <a href='/posts/{{post.id}}'>{{ post.title }}</a>
+	    			{{post.timestamp.strftime('%Y/%m/%d')}} - <strong>{{ post.author.username }}</strong> wrote <a href='/posts/{{post.id}}'>{{ post.title }}</a> - 
+                    {% if post.deleted %}
+                        <a href='deletepost/{{post.id}}/2'>Unhide</a>
+                    {% else %}
+                        <a href='deletepost/{{post.id}}/1'>Hide</a>
+                    {% endif %}
 	    		</p>
 	    	</li>
         {% endfor %}

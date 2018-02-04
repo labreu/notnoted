@@ -6,9 +6,18 @@
     
     <div>
         <h5>Title</h5>  
-        <input id='title' type='text' size=55 style='text-align:left;' class='form-input'><br><br>
+        <!-- <input id='title' type='text' size=55 style='text-align:left;' class='form-input'><br><br> -->
     </div>
-    <h6>Write at your will</h6>
+    
+    <form method='POST' action='/upload' enctype=multipart/form-data>
+      <input id='title' name='title' type='text' size=55 style='text-align:left;' class='form-input'><br><br>
+      <h6>Write at your will or upload an html file</h6>
+      <span class='btn btn-file'>
+        <input type='file' name='file' class='inpt'>
+      </span>
+         <input type='submit' value='Upload' class='btn btn-outline-success'>
+    </form>
+
     <div id="editor">
         <p class='posttext'></p>
     </div>
