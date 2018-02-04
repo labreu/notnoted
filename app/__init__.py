@@ -5,9 +5,10 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 def init_db():
-	os.system('rm -rf migrations')
-	os.system('rm app/app.db')
-    os.system('export FLASK_APP=main.py; flask db init;flask db migrate;flask db upgrade')
+	try:
+		os.system('export FLASK_APP=main.py; flask db init;flask db migrate;flask db upgrade')
+	except Exception as e:
+		print(e)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -27,6 +28,6 @@ login = LoginManager(app)
 migrate = Migrate(app, db)
 login.login_view = 'login'
 
-init_db()
+#init_db()
 
 from app import routes, models
