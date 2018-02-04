@@ -4,6 +4,17 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
+def init_db():
+    if os.path.exists('app/app.db'):
+        print('tudo ok ')
+        pass
+    else:
+
+        os.system('export FLASK_APP=main.py')
+        os.system('flask db init')
+        os.system('flask db migrate')
+        os.system('flask db upgrade')
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
@@ -12,7 +23,7 @@ try:
 except:
 	pass
 
-app.config['SECRET_KEY'] = 'youwillneverguessmate'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'youwillneverguess')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'app/static/notebooks/'
@@ -20,12 +31,8 @@ app.config['UPLOAD_FOLDER'] = 'app/static/notebooks/'
 db = SQLAlchemy(app)
 login = LoginManager(app)
 migrate = Migrate(app, db)
-
 login.login_view = 'login'
 
-#export FLASK_APP=main.py
-#flask db init
-#flask db migrate   # gera script das mudancas
-#flask db upgrade   # aplica script das mudancas
+init_db()
 
 from app import routes, models
