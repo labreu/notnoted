@@ -11,6 +11,15 @@
         <link href="{{ url_for('static', filename='css/quill.snow.css') }}" rel="stylesheet">
         <script src="{{ url_for('static', filename='js/quill.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/image-resize.min.js') }}"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116288404-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-116288404-1');
+        </script>
 <!-- 
         <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
             <a class="navbar-brand" href="/">NN</a>
